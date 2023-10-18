@@ -1,0 +1,22 @@
+version: '3.7'
+
+networks:
+  monitoring:
+    external: true
+
+volumes:
+  grafana-storage:
+    external: true
+
+services:
+  # PROMETHEUS
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    ports:
+      - 3000:3000
+    networks:
+      - monitoring
